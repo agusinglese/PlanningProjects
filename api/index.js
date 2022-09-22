@@ -7,3 +7,6 @@ conn.sync({ force: false }).then(() => {
     console.log("listen at port ", process.env.PORT || 3001)
   );
 });
+
+//{"name": "P2", "duration":"3", "planningDate": "2022-10-10", "type": "Edilicios"}
+//{"name":"Task1P2", "planningDate": "2022-10-12", "duration": "1", "idProject": "2" }

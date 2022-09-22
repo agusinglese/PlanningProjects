@@ -1,16 +1,16 @@
 const { Project } = require("../db");
 
 const ProjectsService = {
-  getAll: () => {
+  getAll: (options) => {
     try {
-      return Project.findAll();
+      return Project.findAll({ ...options });
     } catch (error) {
       return error;
     }
   },
-  getOneById: (options) => {
+  getOneById: (idProject, options) => {
     try {
-      return Project.findOne({ ...options });
+      return Project.findByPk(idProject, { ...options });
     } catch (error) {
       return error;
     }
@@ -26,6 +26,13 @@ const ProjectsService = {
   update: (searchProject, newData) => {
     try {
       return searchProject.update({ ...newData });
+    } catch (error) {
+      return error;
+    }
+  },
+  delete: (options) => {
+    try {
+      return Project.destroy({ ...options });
     } catch (error) {
       return error;
     }

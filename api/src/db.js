@@ -64,11 +64,11 @@ sequelize.models = Object.fromEntries(capsEntries);
 const { Project, Task, Type, Resource } = sequelize.models;
 
 //1:N
-Type.hasMany(Project, { foreignKey: "projectId" });
-Project.belongsTo(Type, { foreignKey: "projectId" });
+Type.hasMany(Project);
+Project.belongsTo(Type, { foreignKey: "typeId" });
 
-Project.hasMany(Task, { foreignKey: "taskId" });
-Task.belongsTo(Project, { foreignKey: "taskId" });
+Project.hasMany(Task);
+Task.belongsTo(Project, { foreignKey: "projectId" });
 
 //RELACION N:N
 Project.belongsToMany(Resource, { through: "project_resource" });

@@ -1,12 +1,21 @@
 import axios from "axios";
 import { urlBase } from "../../../index.js";
-import { setProjects } from "./projectsSlices";
+import { setProjects, setOneProject } from "./projectsSlices";
 
 export const getProjects = () => (dispatch) => {
   axios
     .get(`${urlBase}/projects`)
     .then((response) => {
       dispatch(setProjects(response.data.data));
+    })
+    .catch((e) => console.log(e));
+};
+
+export const getOneProject = (idProject) => (dispatch) => {
+  axios
+    .get(`${urlBase}/projects/${idProject}`)
+    .then((response) => {
+      dispatch(setOneProject(response.data));
     })
     .catch((e) => console.log(e));
 };

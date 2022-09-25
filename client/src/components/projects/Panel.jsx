@@ -5,7 +5,7 @@ function Panel() {
   return (
     <>
       <Tabs isFitted variant="enclosed">
-        <TabList mb="1em">
+        <TabList mb="1rem">
           <Tab>Proyectos</Tab>
           <Tab>Nose</Tab>
         </TabList>

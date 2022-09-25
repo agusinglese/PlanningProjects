@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { getProjects } from "../../store/slices/projects/projectsActions";
 
 function ProjectsTable() {
@@ -54,7 +55,9 @@ function ProjectsTable() {
                     <Td>{e.duration}</Td>
                     <Td>{e.estimatedCost}</Td>
                     <Td>
-                      <Button>Detalles</Button>
+                      <Link to={`${e.id}`}>
+                        <Button>Detalles</Button>
+                      </Link>
                     </Td>
                   </Tr>
                 ))}

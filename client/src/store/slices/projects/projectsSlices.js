@@ -1,17 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 
 export const projectsSlice = createSlice({
   name: "projects",
   initialState: {
     projects: [],
+    projectDetail: {},
   },
   reducers: {
     setProjects: (state, action) => {
       state.projects = action.payload;
     },
+    setOneProject: (state, action) => {
+      state.projectDetail = action.payload;
+    },
   },
 });
 
-export const { setProjects } = projectsSlice.actions;
+export const { setProjects, setOneProject } = projectsSlice.actions;
 export default projectsSlice.reducer;

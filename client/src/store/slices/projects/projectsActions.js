@@ -12,6 +12,7 @@ export const getProjects = () => (dispatch) => {
 };
 
 export const getOneProject = (idProject) => (dispatch) => {
+  console.log("actions", idProject);
   axios
     .get(`${urlBase}/projects/${idProject}`)
     .then((response) => {

@@ -12,17 +12,44 @@ import {
   Alert,
   AlertIcon,
   Button,
+  Icon,
+  Tooltip,
+  ButtonGroup,
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
-
+import { MdOutlineEditNote, MdDeleteSweep } from "react-icons/md";
+import { VscNewFile } from "react-icons/vsc";
+import { BiFilterAlt } from "react-icons/bi";
+import { FiMenu } from "react-icons/fi";
+import { useState } from "react";
 function TasksProject() {
   const { projectDetail } = useSelector((state) => state.projects);
+  const [openMenu, setOpenMenu] = useState(false);
 
   return (
     <>
-      <Box>
+      <Button onClick={() => setOpenMenu(!openMenu)}>
+        <Icon as={FiMenu} />
+      </Button>
+      <Box display="flex" flexDirection={"row"}>
+        {openMenu && (
+          <Box w={{ base: "100%", xl: "20%" }}>
+            <ButtonGroup flexDirection={"column"} alignItems="start">
+              <Button variant="ghost">
+                <Icon as={VscNewFile} h={8} w={8} pr={2} />
+                Crear tarea
+              </Button>
+              <Button variant="ghost">
+                <Icon as={BiFilterAlt} h={8} w={8} pr={2} />
+                Filtrar
+              </Button>
+            </ButtonGroup>
+          </Box>
+        )}
         <TableContainer>
-          {projectDetail.tasks.length ? (
+          {projectDetail &&
+          projectDetail.tasks &&
+          projectDetail.tasks.length ? (
             <Table variant="simple" colorScheme={"pink"}>
               <TableCaption>
                 Tareas asociadas al proyecto {projectDetail.name}
@@ -35,6 +62,7 @@ function TasksProject() {
                   <Th>Duración [días]</Th>
                   <Th>Presupuesto</Th>
                   <Th>Responsable</Th>
+                  <Th>Estado</Th>
                   <Th></Th>
                 </Tr>
               </Thead>
@@ -49,9 +77,18 @@ function TasksProject() {
                       <Td>{e.duration}</Td>
                       <Td>{e.estimatedCost}</Td>
                       <Td>responsable</Td>
+                      <Td>%</Td>
                       <Td>
-                        <Button>Modificar</Button>
-                        <Button>Eliminar</Button>
+                        <Tooltip label="Editar">
+                          <Button variant="ghost">
+                            <Icon as={MdOutlineEditNote} h={5} w={5} />
+                          </Button>
+                        </Tooltip>
+                        <Tooltip label="Eliminar">
+                          <Button variant="ghost">
+                            <Icon as={MdDeleteSweep} h={5} w={5} />
+                          </Button>
+                        </Tooltip>
                       </Td>
                     </Tr>
                   ))}

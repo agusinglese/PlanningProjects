@@ -12,7 +12,7 @@ const ProjectsController = {
       .send({ total: allProjects.length, data: allProjects });
   },
   getOneById: async (req, res) => {
-    const { idProject } = req.params;
+    const idProject = parseInt(req.params.idProject);
     const options = { include: [{ model: Type }, { model: Task }] };
     const project = await ProjectsService.getOneById(idProject, options);
     if (project) {

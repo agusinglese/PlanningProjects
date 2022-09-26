@@ -12,11 +12,17 @@ import {
   Alert,
   AlertIcon,
   Button,
+  Tooltip,
+  Icon,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getProjects } from "../../store/slices/projects/projectsActions";
+import {
+  getProjects,
+  getOneProject,
+} from "../../store/slices/projects/projectsActions";
+import { MdOutlineEditNote, MdDeleteSweep } from "react-icons/md";
 
 function ProjectsTable() {
   const dispatch = useDispatch();
@@ -56,8 +62,20 @@ function ProjectsTable() {
                     <Td>{e.estimatedCost}</Td>
                     <Td>
                       <Link to={`${e.id}`}>
-                        <Button>Detalles</Button>
+                        <Button onClick={() => dispatch(getOneProject(e.id))}>
+                          Detalles
+                        </Button>
                       </Link>
+                      <Tooltip label="Editar">
+                        <Button variant="ghost">
+                          <Icon as={MdOutlineEditNote} h={5} w={5} />
+                        </Button>
+                      </Tooltip>
+                      <Tooltip label="Eliminar">
+                        <Button variant="ghost">
+                          <Icon as={MdDeleteSweep} h={5} w={5} />
+                        </Button>
+                      </Tooltip>
                     </Td>
                   </Tr>
                 ))}

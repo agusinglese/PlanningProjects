@@ -1,6 +1,11 @@
 import axios from "axios";
 import { urlBase } from "../../../index.js";
-import { setProjects, setOneProject } from "./projectsSlices";
+import {
+  setProjects,
+  setOneProject,
+  setOrderName,
+  setFilterProjects,
+} from "./projectsSlices";
 
 export const getProjects = () => (dispatch) => {
   axios
@@ -19,4 +24,17 @@ export const getOneProject = (idProject) => (dispatch) => {
       dispatch(setOneProject(response.data));
     })
     .catch((e) => console.log(e));
+};
+
+export const getOrderName = (orderType) => {
+  setOrderName(orderType);
+};
+
+export const filterProjects = (idType) => (dispatch) => {
+  axios
+    .get(`${urlBase}/projects?type=${idType}`)
+    .then((response) => dispatch(setFilterProjects(response.data.data)))
+    .catch((e) => {
+      console.log(e);
+    });
 };

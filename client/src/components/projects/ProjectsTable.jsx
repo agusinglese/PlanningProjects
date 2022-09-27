@@ -14,6 +14,7 @@ import {
   Button,
   Tooltip,
   Icon,
+  ButtonGroup,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,12 +22,30 @@ import { Link } from "react-router-dom";
 import {
   getProjects,
   getOneProject,
+  getOrderName,
 } from "../../store/slices/projects/projectsActions";
 import { MdOutlineEditNote, MdDeleteSweep } from "react-icons/md";
+import { BsArrowDownUp } from "react-icons/bs";
+
+import { useState } from "react";
 
 function ProjectsTable() {
   const dispatch = useDispatch();
   const { projects } = useSelector((state) => state.projects);
+  const [orderName, setOrderName] = useState("");
+
+  const handleOrderName = () => {
+    if (orderName === "") {
+      setOrderName("asc");
+      dispatch(setOrderName("asc"));
+    } else if (orderName === "asc") {
+      setOrderName("desc");
+      dispatch(setOrderName("desc"));
+    } else if (orderName === "desc") {
+      setOrderName("asc");
+      dispatch(getOrderName("asc"));
+    }
+  };
 
   useEffect(() => {
     dispatch(getProjects());
@@ -41,7 +60,22 @@ function ProjectsTable() {
             <Thead>
               <Tr>
                 <Th>#</Th>
-                <Th>Proyecto</Th>
+                <Th>
+                  Proyecto{" "}
+                  <Button
+                    variant="ghost"
+                    p={0}
+                    size="sm"
+                    onClick={handleOrderName}
+                  >
+                    <Icon
+                      as={BsArrowDownUp}
+                      h={3}
+                      w={3}
+                      color={orderName !== "" ? "blue" : false}
+                    />
+                  </Button>
+                </Th>
                 <Th>Tipo</Th>
                 <Th>Fecha inicial estimada</Th>
                 <Th>Duración [días]</Th>

@@ -6,7 +6,7 @@ const typesController = {
     if (req.query.name) {
       const type = allTypes.filter((t) => t.name === req.query.name);
       if (!type) {
-        return res.status(404).send("Typw not found");
+        return res.status(404).send("Type not found");
       } else {
         return res.status(200).send(type);
       }

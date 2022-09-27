@@ -6,10 +6,19 @@ const tasksService = require("../services/tasks.js");
 const ProjectsController = {
   getAll: async (req, res) => {
     const options = { include: [{ model: Type }, { model: Task }] };
+    if (req.query.type) {
+      options.where = { typeId: parseInt(req.query.type) };
+    }
+    console.log("h", options);
     const allProjects = await ProjectsService.getAll(options);
-    return res
-      .status(200)
-      .send({ total: allProjects.length, data: allProjects });
+
+    if (allProjects.length) {
+      return res
+        .status(200)
+        .send({ total: allProjects.length, data: allProjects });
+    } else {
+      res.status(404).send("Not found projects");
+    }
   },
   getOneById: async (req, res) => {
     const idProject = parseInt(req.params.idProject);

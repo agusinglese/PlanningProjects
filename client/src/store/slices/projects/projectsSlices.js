@@ -13,8 +13,21 @@ export const projectsSlice = createSlice({
     setOneProject: (state, action) => {
       state.projectDetail = action.payload;
     },
+    setOrderName: (state, action) => {
+      let allProjects = state.projects;
+      if (action.payload === "asc") {
+        allProjects.sort((a, b) => a.name.localeCompare(b.name));
+      } else if (action.payload === "desc") {
+        allProjects.reverse((a, b) => a.name.localeCompare(b.name));
+      }
+      state.projects = allProjects;
+    },
+    setFilterProjects: (state, action) => {
+      state.projects = action.payload;
+    },
   },
 });
 
-export const { setProjects, setOneProject } = projectsSlice.actions;
+export const { setProjects, setOneProject, setOrderName, setFilterProjects } =
+  projectsSlice.actions;
 export default projectsSlice.reducer;

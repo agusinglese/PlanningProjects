@@ -16,8 +16,14 @@ const typesController = {
   },
   create: async (req, res) => {
     const newType = { ...req.body };
-    await typesService.create(newType);
-    res.status(200).send("Type created");
+    const options = { where: { name: newType.name } };
+    const searchType = await typesService.getOne(options);
+    if (searchType) {
+      res.status(404).send("Type already exists");
+    } else {
+      await typesService.create(newType);
+      res.status(200).send("Type created");
+    }
   },
   update: async (req, res) => {
     const data = { ...req.body };

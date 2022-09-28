@@ -16,6 +16,7 @@ import {
   Icon,
   ButtonGroup,
   Heading,
+  Input,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,6 +34,7 @@ import { deleteType, getTypes } from "../../store/slices/types/typesActions";
 
 function TypesTable() {
   const dispatch = useDispatch();
+  const { msgConfirm } = useSelector((state) => state.messages);
   const { types } = useSelector((state) => state.types);
   const [orderName, setOrderName] = useState("");
   const [aux, setAux] = useState(false);
@@ -52,7 +54,7 @@ function TypesTable() {
 
   useEffect(() => {
     dispatch(getTypes());
-  }, [dispatch, aux]);
+  }, [dispatch, aux, msgConfirm]);
 
   const handleDelete = (idType) => {
     dispatch(deleteType(idType));
@@ -60,10 +62,7 @@ function TypesTable() {
   };
 
   return (
-    <Box
-      m="1rem"
-      w={{ base: "100%", sm: "100%", md: "100%", lg: "60%", xl: "60%" }}
-    >
+    <Box m="1rem" w="100%">
       <TableContainer>
         {types.length ? (
           <Table variant="simple" colorScheme={"pink"}>
@@ -86,6 +85,7 @@ function TypesTable() {
                     />
                   </Button>
                 </Th>
+                <Th>Color asignado</Th>
 
                 <Th></Th>
               </Tr>
@@ -96,6 +96,17 @@ function TypesTable() {
                   <Tr key={e.id}>
                     <Td>{e.id}</Td>
                     <Td>{e.name}</Td>
+                    <Td>
+                      <Input
+                        type="color"
+                        isReadOnly
+                        value={e.color}
+                        p={0}
+                        border="none"
+                        w="30px"
+                        h="30px"
+                      />
+                    </Td>
                     <Td>
                       <Tooltip label="Editar">
                         <Button variant="ghost">

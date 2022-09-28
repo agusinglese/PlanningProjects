@@ -30,6 +30,12 @@ export const getOrderName = (orderType) => {
   setOrderName(orderType);
 };
 
+export const createProject = (form) => (dispatch) => {
+  axios
+    .post(`${urlBase}/projects`, form)
+    .then((res) => console.log(res))
+    .catch((e) => console.log(e));
+};
 export const filterProjects = (idType) => (dispatch) => {
   axios
     .get(`${urlBase}/projects?type=${idType}`)

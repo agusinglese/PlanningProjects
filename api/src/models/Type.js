@@ -6,9 +6,10 @@ module.exports = (sequelize) => {
     {
       id: { autoIncrement: true, primaryKey: true, type: DataTypes.INTEGER },
       name: {
-        type: DataTypes.ENUM("Gestión", "Maquinarias y Servicios", "Edilicios"),
+        type: DataTypes.STRING,
         allowNull: false,
       },
+      color: { type: DataTypes.STRING, allowNull: false },
     },
     { timestamps: false }
   );

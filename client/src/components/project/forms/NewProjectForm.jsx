@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { BiChevronRight } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
+import { createProject } from "../../../store/slices/projects/projectsActions";
 import { getTypes } from "../../../store/slices/types/typesActions";
 
 function NewProjectForm({ onClose }) {
@@ -51,7 +52,10 @@ function NewProjectForm({ onClose }) {
       objetives: form.objetives.filter((o) => o !== obj),
     });
   };
-  const handleSubmit = (e) => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(createProject(form));
+  };
 
   return (
     <>
@@ -78,7 +82,7 @@ function NewProjectForm({ onClose }) {
               <option>Seleccionar el tipo de proyecto</option>
               {types &&
                 types.map((t) => (
-                  <option key={t.id} value={t.id}>
+                  <option key={t.id} value={t.name}>
                     {t.name}
                   </option>
                 ))}

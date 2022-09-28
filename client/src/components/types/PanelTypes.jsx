@@ -6,20 +6,31 @@ import {
   Box,
   Divider,
   Heading,
+  Alert,
+  AlertIcon,
+  AlertDescription,
 } from "@chakra-ui/react";
 
 import { MdOutlineAdd } from "react-icons/md";
 import { TbArrowBack } from "react-icons/tb";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { cleanMsg } from "../../store/slices/messages/messagesSlices";
+import NewTypeForm from "./NewTypeForm";
 import TypesTable from "./TypesTable";
 function PanelTypes() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { msgConfirm, msgError } = useSelector((state) => state.messages);
+
+  const dispatch = useDispatch();
+  console.log(msgConfirm);
   return (
     <>
       <Heading as="h2" textAlign={"center"} m="1rem">
         Clasificación de proyectos
       </Heading>
       <Divider />
+
       <Box
         display="flex"
         flexDirection={{
@@ -68,9 +79,34 @@ function PanelTypes() {
             Agregar
           </Button>
         </ButtonGroup>
-
-        <TypesTable />
+        <Box w={{ base: "100%", sm: "100%", md: "100%", lg: "60%", xl: "60%" }}>
+          {(msgConfirm || msgError) && (msgConfirm.msg || msgError.msg) && (
+            <Alert status={msgConfirm.msg ? "success" : "error"} m="1rem">
+              <AlertIcon />
+              <Box>
+                <AlertDescription>
+                  {msgConfirm.msg || msgError.msg}
+                </AlertDescription>
+              </Box>
+              <Button
+                alignSelf="flex-start"
+                position="absolute"
+                right={5}
+                top={1}
+                _hover={{ bgColor: "transparent", transform: "scale(1.3)" }}
+                onClick={() => {
+                  dispatch(cleanMsg({}));
+                }}
+                variant="ghost"
+              >
+                X
+              </Button>
+            </Alert>
+          )}
+          <TypesTable />
+        </Box>
       </Box>
+      <NewTypeForm onClose={onClose} isOpen={isOpen} />
     </>
   );
 }

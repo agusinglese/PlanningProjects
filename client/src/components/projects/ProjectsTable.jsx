@@ -15,6 +15,8 @@ import {
   Tooltip,
   Icon,
   ButtonGroup,
+  Tag,
+  Badge,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,6 +28,7 @@ import {
 } from "../../store/slices/projects/projectsActions";
 import { MdOutlineEditNote, MdDeleteSweep } from "react-icons/md";
 import { BsArrowDownUp } from "react-icons/bs";
+import { FiMoreVertical } from "react-icons/fi";
 
 import { useState } from "react";
 
@@ -90,21 +93,27 @@ function ProjectsTable() {
                   <Tr key={e.id}>
                     <Td>{e.id}</Td>
                     <Td>{e.name}</Td>
-                    <Td>{e.type.name}</Td>
+                    <Td>{e.type ? e.type.name : "-"}</Td>
                     <Td>{e.planningDate.split("-").reverse().join("/")}</Td>
                     <Td>{e.duration}</Td>
                     <Td>{e.estimatedCost}</Td>
                     <Td>
+                      {(!e.estimatedCost ||
+                        !e.duration ||
+                        e.tasks.length === 0) && (
+                        <Badge colorScheme="red">Completar</Badge>
+                      )}
+
                       <Link to={`${e.id}`}>
-                        <Button onClick={() => dispatch(getOneProject(e.id))}>
-                          Detalles
-                        </Button>
+                        <Tooltip label="Ver más">
+                          <Button
+                            onClick={() => dispatch(getOneProject(e.id))}
+                            variant="ghost"
+                          >
+                            <Icon as={FiMoreVertical} h={5} w={5} />
+                          </Button>
+                        </Tooltip>
                       </Link>
-                      <Tooltip label="Editar">
-                        <Button variant="ghost">
-                          <Icon as={MdOutlineEditNote} h={5} w={5} />
-                        </Button>
-                      </Tooltip>
                       <Tooltip label="Eliminar">
                         <Button variant="ghost">
                           <Icon as={MdDeleteSweep} h={5} w={5} />

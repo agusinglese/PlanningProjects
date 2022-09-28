@@ -12,10 +12,22 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { createType, getTypes } from "../../store/slices/types/typesActions";
 function NewTypeForm({ isOpen, onClose }) {
   const [form, setForm] = useState({});
+  const dispatch = useDispatch();
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(createType(form));
+    onClose();
+    setForm({});
+    dispatch(getTypes());
+  };
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -27,16 +39,31 @@ function NewTypeForm({ isOpen, onClose }) {
             <form>
               <FormControl>
                 <FormLabel>Nombre</FormLabel>
-                <Input name="name" type="name" />
+                <Input
+                  name="name"
+                  type="name"
+                  value={form.name}
+                  onChange={(e) => handleChange(e)}
+                />
+              </FormControl>
+              <FormControl isRequired>
+                <FormLabel mt="1rem">Seleccionar un color:</FormLabel>
+                <Input
+                  name="color"
+                  type="color"
+                  value={form.color}
+                  onChange={(e) => handleChange(e)}
+                  w="50%"
+                />
               </FormControl>
             </form>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
+            <Button mr={3} variant="ghost" onClick={onClose}>
+              Cancelar
             </Button>
-            <Button variant="ghost" onClick={(e) => handleSubmit(e)}>
+            <Button colorScheme="blue" onClick={(e) => handleSubmit(e)}>
               Agregar
             </Button>
           </ModalFooter>

@@ -45,18 +45,20 @@ function Home() {
           <Icon as={FiGrid} h={10} w={10} m={2} />
           <Text fontSize="2xl">Proyectos</Text>
         </Button>
-        <Button
-          bgColor="red"
-          w="200px"
-          h="150px"
-          m="1rem"
-          _hover={{ transform: "scale(1.1)", opacity: "0.6" }}
-        >
-          <Icon as={VscTypeHierarchy} h={10} w={10} m={2} />
-          <Text fontSize="xl" whiteSpace={"normal"}>
-            Clasificación de proyectos
-          </Text>
-        </Button>
+        <Link as={ReactLink} to="types" _hover={{ textDecoration: "none" }}>
+          <Button
+            bgColor="red"
+            w="200px"
+            h="150px"
+            m="1rem"
+            _hover={{ transform: "scale(1.1)", opacity: "0.6" }}
+          >
+            <Icon as={VscTypeHierarchy} h={10} w={10} m={2} />
+            <Text fontSize="xl" whiteSpace={"normal"}>
+              Clasificación de proyectos
+            </Text>
+          </Button>
+        </Link>
         <Button
           bgColor="green"
           w="200px"

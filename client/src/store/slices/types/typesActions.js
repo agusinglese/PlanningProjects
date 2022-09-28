@@ -19,3 +19,14 @@ export const getOneType = (idType) => (dispatch) => {
     })
     .catch((e) => console.log(e));
 };
+
+export const deleteType = (idType) => (dispatch) => {
+  axios
+    .delete(`${urlBase}/types/${idType}`)
+    .then((response) =>
+      response.status === 200
+        ? console.log("Eliminado")
+        : console.log("no se puede eliminar")
+    )
+    .catch((e) => console.log(e));
+};

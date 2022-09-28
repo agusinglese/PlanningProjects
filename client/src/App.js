@@ -6,6 +6,7 @@ import Layout from "./components/Layout";
 import Home from "./components/Home";
 
 import ProjectPanel from "./components/project/ProjectPanel";
+import PanelTypes from "./components/types/PanelTypes";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="projects" element={<Panel />} />
           <Route path="projects/:idProject" element={<ProjectPanel />} />
+          <Route path="types" element={<PanelTypes />} />
         </Route>
       </Routes>
     </>

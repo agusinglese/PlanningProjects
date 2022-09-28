@@ -7,6 +7,7 @@ import {
   Icon,
   ButtonGroup,
   Button,
+  useDisclosure,
 } from "@chakra-ui/react";
 import ProjectsTable from "./ProjectsTable";
 import { FiGrid } from "react-icons/fi";
@@ -14,8 +15,10 @@ import { BsBarChartSteps } from "react-icons/bs";
 import { VscNewFile } from "react-icons/vsc";
 import { TbArrowBack } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import ProjectModal from "../project/forms/ProjectModal";
 
 function Panel() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
       <ButtonGroup>
@@ -25,7 +28,7 @@ function Panel() {
             Menu principal
           </Button>
         </Link>
-        <Button>
+        <Button onClick={onOpen}>
           <Icon as={VscNewFile} h={5} w={5} m={2} /> Nuevo proyecto
         </Button>
       </ButtonGroup>
@@ -49,6 +52,7 @@ function Panel() {
           </TabPanel>
         </TabPanels>
       </Tabs>
+      <ProjectModal isOpen={isOpen} onClose={onClose} />
     </>
   );
 }

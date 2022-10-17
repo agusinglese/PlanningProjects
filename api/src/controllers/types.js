@@ -3,6 +3,7 @@ const typesService = require("../services/types");
 const typesController = {
   getAll: async (req, res) => {
     const allTypes = await typesService.getAll();
+    console.log("query", req.query.name);
     if (req.query.name) {
       const type = allTypes.filter((t) => t.name === req.query.name);
       if (!type) {

@@ -12,14 +12,14 @@ export const getTypes = () => (dispatch) => {
     .catch((e) => console.log(e));
 };
 
-/*export const getOneType = (idType) => (dispatch) => {
+export const getOneType = (name) => (dispatch) => {
   axios
-    .get(`${urlBase}/projects/${idType}`)
+    .get(`${urlBase}/types?name=${name}`)
     .then((response) => {
       dispatch(setOneType(response.data));
     })
     .catch((e) => console.log(e));
-};*/
+};
 
 export const createType = (form) => (dispatch) => {
   axios
@@ -49,6 +49,24 @@ export const deleteType = (idType) => (dispatch) => {
         : Promise.reject({
             status: response.status,
             msg: "No se ha podido eliminar el registro",
+          })
+    )
+    .then((res) => dispatch(setMsgConfirm(res)))
+    .catch((e) => dispatch(setMsgError(e)));
+};
+
+export const putType = (data) => (dispatch) => {
+  axios
+    .put(`${urlBase}/types/${data.id}`, data)
+    .then((response) =>
+      response.status === 200
+        ? Promise.resolve({
+            status: 200,
+            msg: "El registro ha sido modificado con exito",
+          })
+        : Promise.reject({
+            status: response.status,
+            msg: "No se ha podido modificar el registro",
           })
     )
     .then((res) => dispatch(setMsgConfirm(res)))

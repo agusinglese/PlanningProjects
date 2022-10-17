@@ -4,7 +4,7 @@ const router = Router();
 
 router.get("/", typesController.getAll);
 router.post("/", typesController.create);
-router.put("/", typesController.update);
+router.put("/:idType", typesController.update);
 router.delete("/:idType", typesController.delete);
 
 module.exports = router;

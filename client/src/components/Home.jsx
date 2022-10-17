@@ -96,7 +96,7 @@ function Home() {
                   _hover={{ textDecoration: "none" }}
                 >
                   <Button
-                    bgColor="blue"
+                    bgColor={e.color}
                     w="200px"
                     h="150px"
                     m="1rem"

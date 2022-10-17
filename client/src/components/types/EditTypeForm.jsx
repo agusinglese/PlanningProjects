@@ -11,18 +11,30 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createType, getTypes } from "../../store/slices/types/typesActions";
-function NewTypeForm({ isOpen, onClose }) {
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getOneType,
+  getTypes,
+  putType,
+} from "../../store/slices/types/typesActions";
+
+function EditTypeForm({ isOpen, onClose, idType }) {
+  const { typeDetail } = useSelector((state) => state.types);
   const [form, setForm] = useState({});
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    form.name = typeDetail.name;
+    form.color = typeDetail.color;
+  }, [typeDetail, form]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createType(form));
+    dispatch(putType(form));
     onClose();
-    setForm({});
+
     dispatch(getTypes());
   };
   const handleChange = (e) => {
@@ -33,7 +45,7 @@ function NewTypeForm({ isOpen, onClose }) {
       <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Nuevo</ModalHeader>
+          <ModalHeader>Modificar</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <form>
@@ -64,7 +76,7 @@ function NewTypeForm({ isOpen, onClose }) {
               Cancelar
             </Button>
             <Button colorScheme="blue" onClick={(e) => handleSubmit(e)}>
-              Agregar
+              Modificar
             </Button>
           </ModalFooter>
         </ModalContent>
@@ -73,4 +85,4 @@ function NewTypeForm({ isOpen, onClose }) {
   );
 }
 
-export default NewTypeForm;
+export default EditTypeForm;

@@ -17,6 +17,7 @@ import {
   ButtonGroup,
   Heading,
   Input,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,9 +31,16 @@ import { MdOutlineEditNote, MdDeleteSweep } from "react-icons/md";
 import { BsArrowDownUp } from "react-icons/bs";
 
 import { useState } from "react";
-import { deleteType, getTypes } from "../../store/slices/types/typesActions";
+import {
+  deleteType,
+  getOneType,
+  getTypes,
+  putType,
+} from "../../store/slices/types/typesActions";
+import EditTypeForm from "./EditTypeForm";
 
 function TypesTable() {
+  const modalUpdate = useDisclosure();
   const dispatch = useDispatch();
   const { msgConfirm } = useSelector((state) => state.messages);
   const { types } = useSelector((state) => state.types);
@@ -109,7 +117,18 @@ function TypesTable() {
                     </Td>
                     <Td>
                       <Tooltip label="Editar">
-                        <Button variant="ghost">
+                        <Button
+                          variant="ghost"
+                          onClick={() => {
+                            dispatch(getOneType(e.name));
+                            modalUpdate.onOpen();
+                          }}
+                        >
+                          <EditTypeForm
+                            isOpen={modalUpdate.isOpen}
+                            onClose={modalUpdate.onClose}
+                            idType={e.id}
+                          />
                           <Icon as={MdOutlineEditNote} h={5} w={5} />
                         </Button>
                       </Tooltip>

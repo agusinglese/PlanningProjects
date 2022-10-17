@@ -107,7 +107,7 @@ function ProjectsTable() {
                       <Link to={`${e.id}`}>
                         <Tooltip label="Ver más">
                           <Button
-                            onClick={() => dispatch(getOneProject(e.id))}
+                            //onClick={() => dispatch(getOneProject(e.id))}
                             variant="ghost"
                           >
                             <Icon as={FiMoreVertical} h={5} w={5} />

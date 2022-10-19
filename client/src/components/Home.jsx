@@ -92,7 +92,7 @@ function Home() {
               types.map((e) => (
                 <Link
                   as={ReactLink}
-                  to="projects"
+                  to={`projects/filter/${e.id}`}
                   _hover={{ textDecoration: "none" }}
                 >
                   <Button
@@ -112,7 +112,7 @@ function Home() {
               ))}
             <Link
               as={ReactLink}
-              to="projects"
+              to="projects/filter/All"
               _hover={{ textDecoration: "none" }}
             >
               <Button

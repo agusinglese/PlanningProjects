@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="projects" element={<Panel />} />
+          <Route path="projects/filter/:nameType" element={<Panel />} />
           <Route path="projects/:idProject" element={<ProjectPanel />} />
           <Route path="types" element={<PanelTypes />} />
         </Route>

@@ -55,6 +55,7 @@ function NewProjectForm({ onClose }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(createProject(form));
+    onClose();
   };
 
   return (

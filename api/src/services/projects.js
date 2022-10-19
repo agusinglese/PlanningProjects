@@ -15,6 +15,13 @@ const ProjectsService = {
       return error;
     }
   },
+  getByType: (options) => {
+    try {
+      return Project.findAll({ ...options });
+    } catch (error) {
+      return error;
+    }
+  },
 
   create: (newProject) => {
     try {

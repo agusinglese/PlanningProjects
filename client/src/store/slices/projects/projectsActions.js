@@ -36,10 +36,10 @@ export const createProject = (form) => (dispatch) => {
     .then((res) => console.log(res))
     .catch((e) => console.log(e));
 };
-export const filterProjects = (idType) => (dispatch) => {
+export const filterProjects = (nameType) => (dispatch) => {
   axios
-    .get(`${urlBase}/projects?type=${idType}`)
-    .then((response) => dispatch(setFilterProjects(response.data.data)))
+    .get(`${urlBase}/projects/filter/${nameType}`)
+    .then((response) => dispatch(setFilterProjects(response.data)))
     .catch((e) => {
       console.log(e);
     });

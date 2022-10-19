@@ -5,9 +5,21 @@ const tasksService = require("../services/tasks.js");
 
 const ProjectsController = {
   getAll: async (req, res) => {
-    const options = { include: [{ model: Type }, { model: Task }] };
-    if (req.query.type) {
-      options.where = { typeId: parseInt(req.query.type) };
+    const { type } = req.query;
+
+    let options = {};
+    //const options = { include: [{ model: Type }, { model: Task }] };
+    if (type) {
+      const optionsType = { where: { name: type } };
+      const searchType = await typesService.getOne(optionsType);
+      if (searchType) {
+        options = {
+          where: { typeId: searchType.id },
+          include: [{ model: Type }, { model: Task }],
+        };
+      }
+    } else {
+      options = { include: [{ model: Type }, { model: Task }] };
     }
     console.log("h", options);
     const allProjects = await ProjectsService.getAll(options);
@@ -30,7 +42,33 @@ const ProjectsController = {
       res.status(404).send("Project not found");
     }
   },
-  getByType: () => {},
+  getByType: async (req, res) => {
+    console.log("entre");
+    const idType = req.params.nameType;
+    console.log(idType);
+    if (idType === "All") {
+      console.log("soy all");
+      const options = { include: [{ model: Type }, { model: Task }] };
+      const allProjects = await ProjectsService.getAll(options);
+      if (allProjects) {
+        res.status(200).send(allProjects);
+      } else {
+        res.status(404).send("Project not found");
+      }
+    } else {
+      const options = {
+        where: { typeId: parseInt(idType) },
+        include: [{ model: Type }, { model: Task }],
+      };
+      console.log("options type", options);
+      const projects = await ProjectsService.getByType(options);
+      if (projects) {
+        res.status(200).send(projects);
+      } else {
+        res.status(404).send("Project not found");
+      }
+    }
+  },
   getByPlant: () => {},
   create: async (req, res) => {
     const {

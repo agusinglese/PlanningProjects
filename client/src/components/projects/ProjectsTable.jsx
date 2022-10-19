@@ -20,11 +20,12 @@ import {
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   getProjects,
   getOneProject,
   getOrderName,
+  filterProjects,
 } from "../../store/slices/projects/projectsActions";
 import { MdOutlineEditNote, MdDeleteSweep } from "react-icons/md";
 import { BsArrowDownUp } from "react-icons/bs";
@@ -33,6 +34,7 @@ import { FiMoreVertical } from "react-icons/fi";
 import { useState } from "react";
 
 function ProjectsTable() {
+  const { nameType } = useParams();
   const dispatch = useDispatch();
   const { projects } = useSelector((state) => state.projects);
   const [orderName, setOrderName] = useState("");
@@ -51,13 +53,13 @@ function ProjectsTable() {
   };
 
   useEffect(() => {
-    dispatch(getProjects());
+    dispatch(filterProjects(nameType));
   }, [dispatch]);
 
   return (
     <Box>
       <TableContainer>
-        {projects.length ? (
+        {projects && projects.length ? (
           <Table variant="simple" colorScheme={"pink"}>
             <TableCaption>Imperial to metric conversion factors</TableCaption>
             <Thead>

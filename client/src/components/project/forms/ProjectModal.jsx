@@ -4,6 +4,7 @@ import {
   ModalContent,
   ModalCloseButton,
 } from "@chakra-ui/react";
+
 import NewProjectForm from "./NewProjectForm";
 
 function ProjectModal({ isOpen, onOpen, onClose }) {

@@ -7,16 +7,22 @@ import {
   Heading,
   List,
   ListIcon,
+  Button,
+  Icon,
   ListItem,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { getOneProject } from "../../store/slices/projects/projectsActions";
 import { BiChevronRight } from "react-icons/bi";
+import { FaRegEdit } from "react-icons/fa";
+import EditProjectForm from "./forms/EditProjectForm";
 
 function DetailsProject() {
   const { projectDetail } = useSelector((state) => state.projects);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { idProject } = useParams();
   console.log(idProject);
   const dispatch = useDispatch();
@@ -30,7 +36,12 @@ function DetailsProject() {
     <>
       {projectDetail && (
         <Box>
-          <Heading as="h1">{projectDetail.name}</Heading>
+          <Box display="flex" justifyContent={"space-between"}>
+            <Heading as="h1">{projectDetail.name}</Heading>
+            <Button mr="1rem" onClick={() => onOpen()}>
+              <Icon as={FaRegEdit} />
+            </Button>
+          </Box>
           <Divider />
           {projectDetail && projectDetail.type && (
             <Badge color={projectDetail.type.color}>
@@ -101,6 +112,7 @@ function DetailsProject() {
           </Box>
         </Box>
       )}
+      <EditProjectForm onClose={onClose} isOpen={isOpen} />
     </>
   );
 }

@@ -26,18 +26,22 @@ import {
   getOneProject,
   getOrderName,
   filterProjects,
+  deleteProject,
 } from "../../store/slices/projects/projectsActions";
 import { MdOutlineEditNote, MdDeleteSweep } from "react-icons/md";
 import { BsArrowDownUp } from "react-icons/bs";
 import { FiMoreVertical } from "react-icons/fi";
 
 import { useState } from "react";
+import { setMsgConfirm } from "../../store/slices/messages/messagesSlices";
 
 function ProjectsTable() {
   const { nameType } = useParams();
   const dispatch = useDispatch();
   const { projects } = useSelector((state) => state.projects);
+  const { msgConfirm } = useSelector((state) => state.messages);
   const [orderName, setOrderName] = useState("");
+  const [aux, setAux] = useState(false);
 
   const handleOrderName = () => {
     if (orderName === "") {
@@ -54,8 +58,12 @@ function ProjectsTable() {
 
   useEffect(() => {
     dispatch(filterProjects(nameType));
-  }, [dispatch]);
+  }, [dispatch, aux, msgConfirm]);
 
+  const handleDelete = (idProject) => {
+    dispatch(deleteProject(idProject));
+    setAux(!aux);
+  };
   return (
     <Box>
       <TableContainer>
@@ -117,7 +125,10 @@ function ProjectsTable() {
                         </Tooltip>
                       </Link>
                       <Tooltip label="Eliminar">
-                        <Button variant="ghost">
+                        <Button
+                          variant="ghost"
+                          onClick={() => handleDelete(e.id)}
+                        >
                           <Icon as={MdDeleteSweep} h={5} w={5} />
                         </Button>
                       </Tooltip>

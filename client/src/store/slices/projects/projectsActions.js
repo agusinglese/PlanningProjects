@@ -1,5 +1,6 @@
 import axios from "axios";
 import { urlBase } from "../../../index.js";
+import { setMsgConfirm, setMsgError } from "../messages/messagesSlices.js";
 import {
   setProjects,
   setOneProject,
@@ -43,4 +44,22 @@ export const filterProjects = (nameType) => (dispatch) => {
     .catch((e) => {
       console.log(e);
     });
+};
+
+export const deleteProject = (idProject) => (dispatch) => {
+  axios
+    .delete(`${urlBase}/projects/${idProject}`)
+    .then((response) =>
+      response.status === 200
+        ? Promise.resolve({
+            status: 200,
+            msg: "El projecto ha sido eliminado con exito",
+          })
+        : Promise.reject({
+            status: response.status,
+            msg: "No se ha podido eliminar el proyecto",
+          })
+    )
+    .then((res) => dispatch(setMsgConfirm(res)))
+    .catch((e) => dispatch(setMsgError(e)));
 };

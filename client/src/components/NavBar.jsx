@@ -3,9 +3,7 @@ import { Box } from "@chakra-ui/react";
 function NavBar() {
   return (
     <>
-      <Box bgColor={"green"} h="10vh">
-        Soy navbar
-      </Box>
+      <Box bgColor={"#6699ff"} h="10vh"></Box>
     </>
   );
 }

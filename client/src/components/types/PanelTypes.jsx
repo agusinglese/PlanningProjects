@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 import { cleanMsg } from "../../store/slices/messages/messagesSlices";
 import NewTypeForm from "./NewTypeForm";
 import TypesTable from "./TypesTable";
+
 function PanelTypes() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { msgConfirm, msgError } = useSelector((state) => state.messages);

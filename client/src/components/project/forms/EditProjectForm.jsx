@@ -30,11 +30,26 @@ function EditProjectForm({ isOpen, onClose }) {
   const [value, setValue] = useState();
   const { idProject } = useParams();
   const { projectDetail } = useSelector((state) => state.projects);
+  console.log(projectDetail);
   const dispatch = useDispatch();
   const handleChange = () => {};
   const handleDeleteList = () => {};
   const handleChangeList = () => {};
 
+  const projectData = {
+    id: projectDetail.id,
+    name: projectDetail.name,
+    type: projectDetail.type.name,
+    description: projectDetail.description,
+    objetives: projectDetail.objetives,
+    planningDate: projectDetail.planningDate,
+    duration: projectDetail.duration,
+    estimatedCost: projectDetail.estimatedCost,
+    proposals: projectDetail.proposals,
+    realCost: projectDetail.realCost,
+    realDate: projectDetail.realDate,
+  };
+  console.log("data", projectData);
   useEffect(() => {
     dispatch(getOneProject(idProject));
   }, [dispatch]);

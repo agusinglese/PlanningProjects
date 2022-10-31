@@ -46,6 +46,24 @@ export const filterProjects = (nameType) => (dispatch) => {
     });
 };
 
+export const putProject = (form) => (dispatch) => {
+  axios
+    .put(`${urlBase}/projects/${form.id}`)
+    .then((response) =>
+      response.status === 200
+        ? Promise.resolve({
+            status: 200,
+            msg: "El projecto ha sido modificado con exito",
+          })
+        : Promise.reject({
+            status: response.status,
+            msg: "No se ha podido modificar el proyecto",
+          })
+    )
+    .then((res) => dispatch(setMsgConfirm(res)))
+    .catch((e) => dispatch(setMsgError(e)));
+};
+
 export const deleteProject = (idProject) => (dispatch) => {
   axios
     .delete(`${urlBase}/projects/${idProject}`)

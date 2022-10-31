@@ -16,43 +16,61 @@ import {
   Button,
   Textarea,
   InputGroup,
+  ModalFooter,
 } from "@chakra-ui/react";
 import { BiChevronRight } from "react-icons/bi";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getOneProject } from "../../../store/slices/projects/projectsActions";
+import {
+  getOneProject,
+  putProject,
+} from "../../../store/slices/projects/projectsActions";
 import { useParams } from "react-router-dom";
 
 function EditProjectForm({ isOpen, onClose }) {
-  let types = [];
-  const [form, setForm] = useState({});
-  const [value, setValue] = useState();
   const { idProject } = useParams();
-  const { projectDetail } = useSelector((state) => state.projects);
-  console.log(projectDetail);
-  const dispatch = useDispatch();
-  const handleChange = () => {};
-  const handleDeleteList = () => {};
-  const handleChangeList = () => {};
 
-  const projectData = {
-    id: projectDetail.id,
-    name: projectDetail.name,
-    type: projectDetail.type.name,
-    description: projectDetail.description,
-    objetives: projectDetail.objetives,
-    planningDate: projectDetail.planningDate,
-    duration: projectDetail.duration,
-    estimatedCost: projectDetail.estimatedCost,
-    proposals: projectDetail.proposals,
-    realCost: projectDetail.realCost,
-    realDate: projectDetail.realDate,
-  };
-  console.log("data", projectData);
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getOneProject(idProject));
-  }, [dispatch]);
+  }, [dispatch, idProject]);
+
+  const { projectDetail } = useSelector((state) => state.projects);
+  const { types } = useSelector((state) => state.types);
+  console.log(projectDetail);
+  let projectData = {};
+  if (projectDetail) {
+    projectData = {
+      id: projectDetail.id,
+      name: projectDetail.name,
+      type: projectDetail.type.name,
+      description: projectDetail.description,
+      objetives: projectDetail.objetives,
+      planningDate: projectDetail.planningDate,
+      duration: projectDetail.duration,
+      estimatedCost: projectDetail.estimatedCost,
+      proposals: projectDetail.proposals,
+      realCost: projectDetail.realCost,
+      realDate: projectDetail.realDate,
+    };
+  }
+  console.log("data", projectData);
+  sessionStorage.setItem("projectData", JSON.stringify(projectData));
+  const dataForm = JSON.parse(sessionStorage.getItem("projectData"));
+
+  const [form, setForm] = useState(dataForm);
+  const [value, setValue] = useState();
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(putProject(form));
+  };
+  const handleDeleteList = () => {};
+  const handleChangeList = () => {};
 
   return (
     <>
@@ -164,6 +182,11 @@ function EditProjectForm({ isOpen, onClose }) {
               </FormControl>
             </form>
           </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" onClick={(e) => handleSubmit(e)}>
+              Modificar proyecto
+            </Button>
+          </ModalFooter>
         </ModalContent>
       </Modal>
     </>

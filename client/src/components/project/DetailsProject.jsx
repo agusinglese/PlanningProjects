@@ -88,27 +88,52 @@ function DetailsProject() {
             </Box>
           </Box>
           <Box>
-            <Box m="1rem">
+            <Box m="1rem" display="flex">
+              <Box>
+                <Heading as="h6" fontSize={"md"} mb="1rem" display="inline">
+                  Fecha inicial estimada:{" "}
+                </Heading>
+                <Text display="inline">
+                  {projectDetail.planningDate &&
+                    projectDetail.planningDate.split("-").reverse().join("-")}
+                </Text>
+              </Box>
               <Heading as="h6" fontSize={"md"} mb="1rem" display="inline">
-                Fecha inicial estimada:{" "}
+                Fecha inicial real:{" "}
               </Heading>
               <Text display="inline">
-                {projectDetail.planningDate &&
-                  projectDetail.planningDate.split("-").reverse().join("-")}
+                {projectDetail.realDate &&
+                  projectDetail.realDate.split("-").reverse().join("-")}
               </Text>
             </Box>
             <Box m="1rem">
-              <Heading as="h6" fontSize={"md"} mb="1rem" display="inline">
-                Duración:
-              </Heading>
-              <Text display="inline"> {projectDetail.duration} días</Text>
+              <Box>
+                <Heading as="h6" fontSize={"md"} mb="1rem" display="inline">
+                  Duración estimada:
+                </Heading>
+                <Text display="inline"> {projectDetail.duration} días</Text>
+              </Box>
+              <Box>
+                <Heading as="h6" fontSize={"md"} mb="1rem" display="inline">
+                  Duración real:
+                </Heading>
+                <Text display="inline"> calcular días</Text>
+              </Box>
             </Box>
           </Box>
           <Box m="1rem">
-            <Heading as="h6" fontSize={"md"} mb="1rem" display="inline">
-              Costo Estimado:
-            </Heading>
-            <Text display="inline"> $ {projectDetail.estimatedCost}</Text>
+            <Box>
+              <Heading as="h6" fontSize={"md"} mb="1rem" display="inline">
+                Costo Estimado:
+              </Heading>
+              <Text display="inline"> $ {projectDetail.estimatedCost}</Text>
+            </Box>
+            <Box>
+              <Heading as="h6" fontSize={"md"} mb="1rem" display="inline">
+                Costo Real:
+              </Heading>
+              <Text display="inline"> $ sumar costos</Text>
+            </Box>
           </Box>
         </Box>
       )}

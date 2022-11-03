@@ -2,6 +2,7 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import TasksProject from "./TasksProject";
 import PaymentsProject from "./PaymentsProject";
 import DetailsProject from "./DetailsProject";
+import GanttProject from "./GanttProject";
 
 function ProjectPanel() {
   return (
@@ -22,7 +23,7 @@ function ProjectPanel() {
             <TasksProject />
           </TabPanel>
           <TabPanel>
-            <p>Gannt!</p>
+            <GanttProject />
           </TabPanel>
           <TabPanel>
             <PaymentsProject />

@@ -44,7 +44,7 @@ function EditProjectForm({ isOpen, onClose }) {
     projectData = {
       id: projectDetail.id,
       name: projectDetail.name,
-      type: projectDetail.type.name || "none",
+      //type: projectDetail.type.name || "none",
       description: projectDetail.description,
       objetives: projectDetail.objetives,
       planningDate: projectDetail.planningDate,

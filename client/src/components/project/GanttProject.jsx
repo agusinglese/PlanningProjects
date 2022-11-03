@@ -23,6 +23,8 @@ ChartJS.register(
 );
 
 export const options = {
+  indexAxis: "y",
+  scales: { x: { position: "top" }, y: { beginAtZero: true } },
   responsive: true,
   plugins: {
     legend: {
@@ -35,20 +37,21 @@ export const options = {
   },
 };
 
-const labels = ["Task1", "Task2", "Task3", "Task4", "Task1", "June", "July"];
+const labels = ["Task1", "Task2", "Task3", "Task4", "Task5"];
 
 export const data = {
   labels,
   datasets: [
     {
-      label: "Dataset 1",
+      label: "Project Time",
       data: [1, 2, 3, 4, 5, 6, 7],
       backgroundColor: "rgba(255, 99, 132, 0.5)",
     },
+
     {
-      label: "Dataset 2",
+      label: "Real Time",
       data: [1, 2, 3, 4, 5, 6, 7],
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
+      backgroundColor: "rgba(255, 99, 132, 0.5)",
     },
   ],
 };

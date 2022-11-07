@@ -45,7 +45,7 @@ export const data = {
     {
       label: "Project Time",
       data: [1, 2, 3, 4, 5, 6, 7],
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
+      backgroundColor: "rgba(130, 255, 99, 0.5)",
     },
 
     {

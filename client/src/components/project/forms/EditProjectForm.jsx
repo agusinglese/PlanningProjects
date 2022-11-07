@@ -65,6 +65,7 @@ function EditProjectForm({ isOpen, onClose }) {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(putProject(form));
